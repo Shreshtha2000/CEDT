@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniPresent</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgb(32, 26, 26);
+        }
+        body::-webkit-scrollbar{
+            display: none;
+        }
+        .mydiv{
+            height: 100%;
+            width: 100%;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body onload="init();">
+    <div class="main-container" height="100vh" width="100%">
+        <div height="100vh" width="100%">
+            <canvas class="mydiv" id="canvas" width="600" height="600" ondblclick="createPopup();">
+                <p>
+                    This example requires a browser that supports the
+                    <a href="http://www.w3.org/html/wg/html5/">HTML5</a>
+                    &lt;canvas&gt; feature.
+                </p> 
+            </canvas><br>
+            <canvas id="graphcanvas" width="500" height="80" style="display: none;"></canvas><br />
+        </div>
+    </div>
+
+
+    <script src="http://smoothiecharts.org/smoothie.js"></script>
+    <script src="../scripts/interface.js"></script>
+</body>
+</html>
