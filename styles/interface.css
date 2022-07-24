@@ -68,7 +68,6 @@ nav{
     margin:0 auto 0 20px;
     cursor: pointer;
     color: orange;
-    opacity: 0.9;
     transition: all 0.3s ease-in-out;
     width: 100%;
 }
@@ -83,9 +82,6 @@ nav{
 .logo span{
     font-size: 1.5rem;
 }
-.logo:hover{
-    opacity: 1;
-}
 
 
 #canvas{
@@ -99,7 +95,7 @@ nav{
     display: block;
 }
 
-.info{
+#info{
     height: 245px;
     width:400px;
     background-color: rgb(14, 13, 13);
@@ -108,20 +104,22 @@ nav{
     align-items: center;
     justify-content: center;
     position: absolute;
-    z-index: 20;
+    z-index: 25;
     top:60px;
     left: 10px;
     border-radius: 10px;
 }
-.info .data{
+#info .data{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
     text-align: center;
     padding-top: 40px;
+    width: 100%;
+    padding-left: 20px;
 }
-.info .data-bit{
+#info .data-bit{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -129,6 +127,7 @@ nav{
     color: white;
     font-family: "TTsuper";
     margin: 0 20px 0 0;
+    cursor: pointer;
 }
 
 .data-bit p{
@@ -145,13 +144,10 @@ nav{
     margin: 0px 10px 0 0 ;
     padding: 7px 10px;
     font-weight: bold;
+    border-radius: 5px;
     transition: all 0.3s ease-in-out;
 }
-.buttons button:hover{
-    color: black;
-    background-color: orange;
-    border: 1px solid orange;
-}
+
 #quick{
     background: transparent;
     border: 1px solid orange;
@@ -159,7 +155,7 @@ nav{
     background-color: orange;
 }
 
-.video{
+#video{
     height: 245px;
     width:400px;
     background-color: rgba(0, 0, 0, 0.425);
@@ -172,10 +168,78 @@ nav{
     justify-content: center;
     font-family: "TTsuper";
     border-radius: 10px;
-    
 }
-
-.mydiv{
+.block{
     cursor: move;
 }
 
+/* action div  */
+.action-data{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+}
+#drop{
+    background-color: rgb(14, 13, 13);
+    padding: 7px 10px;
+    outline:none;
+    border-radius: 5px;
+    width: 117px;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+    margin: 0 10px 15px 0;
+    transition: all 0.2s ease-in-out;
+}
+#drop:hover{
+    border: 1px solid orange;
+    color: orange;
+}
+#drop::-webkit-scrollbar{
+    display: none;
+}
+.row1 button{
+    margin: 0 10px 15px 0;
+    padding: 8px 30px ;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    border-radius: 5px;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+}
+.row1 button:hover{
+    border: 1px solid orange;
+    color: orange;
+}
+.row1{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 80%;
+    padding-top: 20px;
+    justify-content: space-evenly;
+}
+
+#switch{
+    z-index: 25;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 7px 10px;
+    background-color: transparent;
+    color: orange;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid orange;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+}
+#switch:hover{
+    color:black;
+    background-color: orange;
+}

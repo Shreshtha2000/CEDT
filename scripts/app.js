@@ -6,87 +6,50 @@ const password="sawant123";
 
 
 
-container1.addEventListener('submit',e=>{
-    input.reset();
-    e.preventDefault();
-})
+// the info tab click transitions
+const quick=document.querySelector('#quick');
+const actions=document.querySelector('#actions');
+const quickData=document.querySelector('.data');
+const actionData=document.querySelector('.action-data');
+
+actions.addEventListener('click',()=>{
+   quickData.style.display="none";
+   actionData.style.display="flex";
+   quick.style.background="transparent";
+   quick.style.color="orange";
+   actions.style.background="orange";
+   actions.style.color="black";
+});
+quick.addEventListener('click',()=>{
+  actionData.style.display="none";
+  quickData.style.display="flex";
+  actions.style.background="transparent";
+  actions.style.color="orange";
+  quick.style.background="orange";
+  quick.style.color="black";
+});
+
 
 
 // creating a pop up 
 function createPopup(){
-    var popup = open("./popup.html", "Popup", "width=600,height=600");
+    var popup = open("./hudpopup.html", "Popup", "width=600,height=600");
     var txtOk = popup.document.createElement("canvas");
     popup.document.body.appendChild(txtOk);
     popup.document.body.appendChild(aOk);
-
     }
 
 
-
-
-    // Make the DIV element draggable:
-    var dragItem = document.querySelector(".mydiv");
-    var container = document.querySelector(".container");
-
-    var active = false;
-    var currentX;
-    var currentY;
-    var initialX;
-    var initialY;
-    var xOffset = 0;
-    var yOffset = 0;
-
-    container.addEventListener("touchstart", dragStart, false);
-    container.addEventListener("touchend", dragEnd, false);
-    container.addEventListener("touchmove", drag, false);
-
-    container.addEventListener("mousedown", dragStart, false);
-    container.addEventListener("mouseup", dragEnd, false);
-    container.addEventListener("mousemove", drag, false);
-
-    function dragStart(e) {
-      if (e.type === "touchstart") {
-        initialX = e.touches[0].clientX - xOffset;
-        initialY = e.touches[0].clientY - yOffset;
-      } else {
-        initialX = e.clientX - xOffset;
-        initialY = e.clientY - yOffset;
-      }
-
-      if (e.target === dragItem) {
-        active = true;
-      }
+function createPopup2(){
+    var popup = open("./datapopup.html", "Popup2", "width=900,height=600");
     }
 
-    function dragEnd(e) {
-      initialX = currentX;
-      initialY = currentY;
-
-      active = false;
-    }
-
-    function drag(e) {
-      if (active) {
-      
-        e.preventDefault();
-      
-        if (e.type === "touchmove") {
-          currentX = e.touches[0].clientX - initialX;
-          currentY = e.touches[0].clientY - initialY;
-        } else {
-          currentX = e.clientX - initialX;
-          currentY = e.clientY - initialY;
-        }
-
-        xOffset = currentX;
-        yOffset = currentY;
-
-        setTranslate(currentX, currentY, dragItem);
-      }
-    }
-
-    function setTranslate(xPos, yPos, el) {
-      el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-    }
-
-
+// arm-disarm button 
+const armDisarm=document.querySelector('#arm-disarm');
+console.log(armDisarm.textContent);
+armDisarm.addEventListener('click',()=>{
+  armDisarm.textContent="disarm";
+  armDisarm.addEventListener('dblclick',()=>{
+    armDisarm.textContent="arm";
+  })
+})

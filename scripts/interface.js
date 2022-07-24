@@ -714,3 +714,71 @@
             $('#yaw').html(num);
         });
     })
+
+
+
+
+const mapview=document.querySelector('#switch');
+
+var map = L.map('map').setView([14.0860746, 100.608406], 6);
+mapLink = 
+            '<a href="http://www.esri.com/">Esri</a>';
+        wholink = 
+            'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+        L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; '+mapLink+', '+wholink,
+            maxZoom: 18,
+            }).addTo(map);;
+            mapview.addEventListener('click',()=>{
+                L.tileLayer(
+                    'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                    attribution: '&copy; '+mapLink+', '+wholink,
+                    maxZoom: 18,
+                    }).addTo(map);;
+                    mapview.textContent="Street View"
+                    mapview.addEventListener('dblclick',()=>{
+                        L.tileLayer(
+                            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; '+mapLink+', '+wholink,
+                            maxZoom: 18,
+                            }).addTo(map);;
+                            mapview.textContent="Satellite View"
+                    })
+            })
+            
+
+    if(!navigator.geolocation) {
+        console.log("Your browser doesn't support geolocation feature!")
+    } else {
+    //     setInterval(() => {
+    //         navigator.geolocation.getCurrentPosition(getPosition)
+    //     }, 1000);
+    // }
+                navigator.geolocation.getCurrentPosition(getPosition)}
+
+    var marker, circle;
+
+    function getPosition(position){
+        console.log(position)
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        var accuracy = position.coords.accuracy;
+
+        if(marker) {
+            map.removeLayer(marker)
+        }
+
+        if(circle) {
+            map.removeLayer(circle)
+        }
+
+        marker = L.marker([lat, long])
+        circle = L.circle([lat, long], {radius: accuracy})
+
+        var featureGroup = L.featureGroup([marker, circle]).addTo(map)
+
+        map.fitBounds(featureGroup.getBounds())
+
+        // console.log("Your coordinate is: Lat: "+ lat +" Long: "+ long+ " Accuracy: "+ accuracy)
+    }
