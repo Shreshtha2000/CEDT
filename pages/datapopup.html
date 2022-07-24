@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display this</title>
+</head>
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+        body{
+            background-color: #0E0D0D;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+        }
+        body::-webkit-scrollbar{
+            display: none;
+        }
+        form{
+            display: grid;
+            grid-template-columns:repeat(4,1fr) ;
+            height: 100vh;
+            width: 100%;
+        }
+        label{
+            margin: 0 15px 0 5px;
+        }
+        input {
+            accent-color: orange;
+            cursor: pointer;
+        }
+        input:checked~label{
+            color: orange;
+        }
+    </style>
+    <form action="#">
+        <div class="options">
+            <input type="checkbox" name="yaw">
+            <label for="yaw"> yaw</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="roll">
+            <label for="roll"> roll</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="pitch">
+            <label for="pitch"> pitch</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="yawspeed">
+            <label for="yawspeed"> yaw speed</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="rollspeed">
+            <label for="rollspeed"> roll speed</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="pitchspeed">
+            <label for="pitchspeed"> pitch speed</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vx">
+            <label for="vx"> vx</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vy">
+            <label for="vy"> vy</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vz">
+            <label for="vz"> vz</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="hdg">
+            <label for="hdg"> hdg</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="relativealtitude">
+            <label for="relativealtitude"> relative altitude</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="obboardcontrolsensorsenabled">
+            <label for="obboardcontrolsensorsenabled"> obboard control sensors enabled</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="batteryremaining">
+            <label for="batteryremaining"> battery remaining</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="dropratecommunication">
+            <label for="dropratecommunication"> droprate communication</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="errorscomm">
+            <label for="errorscomm"> errors comm</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="errorscount1">
+            <label for="errorscount1"> errors count1</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="errorscount2">
+            <label for="errorscount2"> errors count2</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="errorscount3">
+            <label for="errorscount3"> errors count3</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="errorscount4">
+            <label for="errorscount4"> errors count4</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="load">
+            <label for="load"> load</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vservo">
+            <label for="vservo"> vservo</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="flags">
+            <label for="flags"> flags</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vcc">
+            <label for="vcc"> vcc</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="freemem32">
+            <label for="freemem32"> freemem32</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="freemem">
+            <label for="freemem"> freemem</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="manual">
+            <label for="manual"> manual</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="navroll">
+            <label for="navroll"> nav roll</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="navbearing">
+            <label for="navbearing"> nav bearing</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="targetbearing">
+            <label for="targetbearing"> target bearing</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="waypointdistance">
+            <label for="waypointdistance"> waypoint distance</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="altitudeerrors">
+            <label for="altitudeerrors "> altitude errors</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="aspderror">
+            <label for="aspderror"> aspd error</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="extrackerror">
+            <label for="extrackerror"> extrack error</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="navpitch">
+            <label for="navpitch"> nav pitch</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="missioncurrentseq">
+            <label for="missioncurrentseq "> mission current seq </label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="serverport">
+            <label for="serverport"> server port</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="server1row">
+            <label for="server1row"> server1 row</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="server2row">
+            <label for="server2row"> server2 row</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="server3row">
+            <label for="server3row"> server3 row</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="channelcount">
+            <label for="channelcount"> channel count</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="channel1row">
+            <label for="channel1row"> channel1 row</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="channel2row">
+            <label for="channel2row"> channel2 row</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="channel3row">
+            <label for="channel3row"> channel3 row</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="gps_lat">
+            <label for="gps_lat"> gps_lat</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="gps_long">
+            <label for="gps_long"> gps_long</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="gps_yaw">
+            <label for="gps_yaw"> gps_yaw</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="h-acc">
+            <label for="h-acc"> h-acc</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="v-acc">
+            <label for="v-acc"> v-acc</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vel-acc">
+            <label for="vel-acc"> vel-acc</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="hdg-acc">
+            <label for="hdg-acc"> hdg-acc</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="omegaIx">
+            <label for="omegaIx"> omegaIx</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="omegaIy">
+            <label for="omegaIy"> omegaIy</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="omegaIz">
+            <label for="omegaIz"> omegaIz</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="accel-weight">
+            <label for="accel-weight"> accel-weight</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="renew-vel">
+            <label for="renew-vel"> renew-vel</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="error_rp">
+            <label for="error_rp"> error_rp</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="error_yaw">
+            <label for="error_yaw"> error_yaw</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="I2cerr">
+            <label for="I2cerr"> I2cerr</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="wind-direction">
+            <label for="wind-direction"> wind-direction</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="wind-speed">
+            <label for="wind-speed"> wind-speed</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="wind-speed2">
+            <label for="wind-speed2"> wind-speed2</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="tr_lat">
+            <label for="tr_lat"> tr_lat</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="tr_long">
+            <label for="tr_long"> tr_long</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="tr_spacing">
+            <label for="tr_spacing"> tr_spacing</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="tr_terrain_height">
+            <label for="tr_terrain_height"> tr_terrain_height</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="tr_current_height">
+            <label for="tr_current_height"> tr_current_height</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="tr_pending">
+            <label for="tr_pending"> tr_pending</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="tr_loading">
+            <label for="tr_loading"> tr_loading</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="velocity_variance">
+            <label for="velocity_variance"> velocity_variance</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="pos_varing_variance">
+            <label for="pos_varing_variance"> pos_varing_variance</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="terrain_alt_variance">
+            <label for="terrain_alt_variance"> terrain_alt_variance</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="airspeed_variance">
+            <label for="airspeed_variance"> airspeed_variance</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="compass_variance">
+            <label for="compass_variance"> compass_variance</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="pos_vert_variance">
+            <label for="pos_vert_variance"> pos_vert_variance</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vibration-x">
+            <label for="vibration-x"> vibration-x</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vibration-y">
+            <label for="vibration-y"> vibration-y</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vibration-z">
+            <label for="vibration-z"> vibration-z</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="clipping-0">
+            <label for="clipping-0"> clipping-0</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="clipping-1">
+            <label for="clipping-1"> clipping-1</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="clipping-2">
+            <label for="clipping-2"> clipping-2</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="lat_int">
+            <label for="lat_int"> lat_int</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="long_int">
+            <label for="long_int"> long_int</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="alt_int">
+            <label for="alt_int"> alt_int</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vx_int">
+            <label for="vx_int"> vx_int</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vy_int">
+            <label for="vy_int"> vy_int</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="vz_int">
+            <label for="vz_int"> vz_int</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="apx">
+            <label for="apx"> apx</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="apy">
+            <label for="apy"> apy</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="apz">
+            <label for="apz"> apz</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="yaw_int">
+            <label for="yaw_int"> yaw_int</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="yaw_rate_int">
+            <label for="yaw_rate_int"> yaw_rate_int</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="airspeed">
+            <label for="airspeed"> airspeed</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="groundspeed">
+            <label for="groundspeed"> ground speed</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="heading">
+            <label for="heading"> heading</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="throttle">
+            <label for="throttle"> throttle</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="alt_yfr">
+            <label for="alt_yfr"> alt_yfr</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="climb">
+            <label for="climb"> climb</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="AOA">
+            <label for="AOA"> AOA</label>
+        </div>
+        <div class="options">
+            <input type="checkbox" name="SSA">
+            <label for="SSA"> SSA</label>
+        </div>
+    </form>
+</body>
+</html>
