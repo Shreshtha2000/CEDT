@@ -36,215 +36,251 @@
             // Add to SmoothieChart
             smoothie.addTimeSeries(line1);
             smoothie.addTimeSeries(line2);
+    if (window["WebSocket"]) {
+        var host = "http://" + window.location.hostname + ":5000/test";
+        if (window.location.hostname == "")
+            host = "http://localhost:5000/test";
+        try {
+            socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+            socket.on('ar', function(msg) {
+                let num = parseFloat(msg.message);
+                num = num * 180 / Math.PI;
+                //$('#roll').html(num);
+                console.log(num);
+                roll = num;
+            });
+            socket.on('ap', function(msg) {
+                let num = parseFloat(msg.message);
+                num = num * 180 / Math.PI;
+                //$('#roll').html(num);
+                console.log(num);
+                pitch = num;
+            });
+            socket.on('ay', function(msg) {
+                let num = parseFloat(msg.message);
+                num = num * 180 / Math.PI;
+                //$('#roll').html(num);
+                console.log(num);
+                yaw = num;
+                if (yaw < 0)
+                    document.getElementById("yaw").innerHTML = (yaw + 360.00).toFixed(2)
+                else
+                    document.getElementById("yaw").innerHTML = yaw.toFixed(2);
+            });
+            socket.on('mcowpd', function(msg) {
+                let num = parseFloat(msg.message);
+                document.getElementById("wpdist").innerHTML = num.toFixed(2);
+            });
+            socket.on('gpsialt', function(msg) {
+                let num = parseFloat(msg.message);
+                document.getElementById("alt").innerHTML = (num / 1000).toFixed(2);
+            });
+            socket.on('gpsivz', function(msg) {
+                let num = parseFloat(msg.message);
+                document.getElementById("vs").innerHTML = num.toFixed(2);
+            });
+            socket.on('vfrhgs', function(msg) {
+                let num = parseFloat(msg.message);
+                document.getElementById("gs").innerHTML = num.toFixed(2);
+            });
+            window.onbeforeunload = function() {
+                    socket.close();
+                    socket2.close();
+                }
+                // log('WebSocket - status '+socket.readyState);
+            socket.onopen = function(msg) {
+                document.getElementById("serverStatus").innerHTML = "onopen";
+                jsoncount = 0;
+            };
+            socket.onmessage = function(msg) {
+                jsoncount++;
 
-                        if (window["WebSocket"]) {
-                            var host = "ws://"+window.location.hostname+":56781/websocket/server";
-                            if(window.location.hostname == "")
-                                host = "ws://localhost:56781/websocket/server";
-                        try{
-                        socket = new WebSocket(host);
+                var data = JSON.parse(msg.data);
 
-                        window.onbeforeunload = function(){ socket.close(); socket2.close(); }
-                        // log('WebSocket - status '+socket.readyState);
-                        socket.onopen    = function(msg){ document.getElementById("serverStatus").innerHTML = "onopen"; jsoncount=0; };
-                        socket.onmessage = function(msg){
-                            jsoncount++;
+                if (data.hasOwnProperty('FrameString')) {
+                    MAV = data;
+                } else if (data.hasOwnProperty('rateattitude')) {
+                    cs = data;
 
-                            var data = JSON.parse(msg.data);
+                    var status = "<ul style='columns: 3;'>";
 
-                            if(data.hasOwnProperty('FrameString'))
-                            {
-                                MAV = data;
-                            }
-                            else if(data.hasOwnProperty('rateattitude'))
-                            {
-                                cs = data;
-
-                                var status = "<ul style='columns: 3;'>";
-
-                                a=1;
+                    a = 1;
 
                     var sortable = [];
-                        for (i in cs)
-                                {
-                                sortable.push(i);
-                                }
+                    for (i in cs) {
+                        sortable.push(i);
+                    }
 
-                                sortable.sort(function (a, b) {
+                    sortable.sort(function(a, b) {
                         return a.toLowerCase().localeCompare(b.toLowerCase());
                     });
 
-                                for (i in sortable)
-                                {
-                                    var name = sortable[i];
-                                    var data = cs[sortable[i]];
+                    for (i in sortable) {
+                        var name = sortable[i];
+                        var data = cs[sortable[i]];
 
-                                    if(typeof data != 'object')
-                                        status += "<li style='overflow:hidden; white-space: nowrap;'><b onclick=graphitem('" + name + "')>" + name + ":</b><br> " + data + "</li>";
+                        if (typeof data != 'object')
+                            status += "<li style='overflow:hidden; white-space: nowrap;'><b onclick=graphitem('" + name + "')>" + name + ":</b><br> " + data + "</li>";
 
-                                    //if(a%3==0)
-                                        //status += "<br>";
+                        //if(a%3==0)
+                        //status += "<br>";
 
-                                    a++;
-                                }
+                        a++;
+                    }
 
-                                status+="</ul>";
+                    status += "</ul>";
 
-                                document.getElementById("serverStatus").innerHTML = status;
+                    document.getElementById("serverStatus").innerHTML = status;
 
-                                // map.setCenter({lat: cs.lat, lng: cs.lng});
+                    // map.setCenter({lat: cs.lat, lng: cs.lng});
 
-                                if(jsoncount < 5)
-                                {
-                                    map.setZoom(18);
-                                }
+                    if (jsoncount < 5) {
+                        map.setZoom(18);
+                    }
 
-                                roll = cs.roll;
-                                pitch = cs.pitch;
-                                yaw = cs.yaw;
+                    roll = cs.roll;
+                    pitch = cs.pitch;
+                    yaw = cs.yaw;
 
-                                lat = cs.lat;
-                                lng = cs.lng;
-                                alt = cs.alt;
+                    lat = cs.lat;
+                    lng = cs.lng;
+                    alt = cs.alt;
 
-                                try {
+                    try {
 
-                            var myLatLng = {lat: lat, lng: lng};
+                        var myLatLng = { lat: lat, lng: lng };
 
-                        if(markers.length > 0)
-                        {
+                        if (markers.length > 0) {
                             markers[0].setPosition(myLatLng);
                         } else {
                             var marker = new google.maps.Marker({
                                 position: myLatLng,
                                 map: map,
                                 title: 'ArduPilot'
-                           });
+                            });
 
                             markers.push(marker);
                         }
 
-                        map.setOptions({maxZoom: 21});
+                        map.setOptions({ maxZoom: 21 });
 
-                              //socket.send("test "+pitch+"\n");
-                              } catch (ex){ }// alert(ex); }
+                        //socket.send("test "+pitch+"\n");
+                    } catch (ex) {} // alert(ex); }
 
-                              line1.append(new Date().getTime(), eval(line1item));
-                              line2.append(new Date().getTime(), eval(line2item));
+                    line1.append(new Date().getTime(), eval(line1item));
+                    line2.append(new Date().getTime(), eval(line2item));
 
-                              addData();
+                    addData();
 
-                                pathHistory.push({lat: lat, lng: lng});
+                    pathHistory.push({ lat: lat, lng: lng });
 
-                                pathHistory = pathHistory.slice(-200,200);
+                    pathHistory = pathHistory.slice(-200, 200);
 
-                                if(pathHistoryPoly == null) {
-                                pathHistoryPoly = new google.maps.Polyline({
-                                  path: pathHistory,
-                                  geodesic: true,
-                                  strokeColor: '#191970',
-                                  strokeOpacity: 0.56,
-                                  strokeWeight: 4
-                                });
+                    if (pathHistoryPoly == null) {
+                        pathHistoryPoly = new google.maps.Polyline({
+                            path: pathHistory,
+                            geodesic: true,
+                            strokeColor: '#191970',
+                            strokeOpacity: 0.56,
+                            strokeWeight: 4
+                        });
 
-                                pathHistoryPoly.setMap(map);
-                                } else {
-                                    pathHistoryPoly.setPath(pathHistory);
-                                }
-                            }
-                            else if(data[0].hasOwnProperty('mission_type'))
-                            {
-                                wps = data;
+                        pathHistoryPoly.setMap(map);
+                    } else {
+                        pathHistoryPoly.setPath(pathHistory);
+                    }
+                } else if (data[0].hasOwnProperty('mission_type')) {
+                    wps = data;
 
-                                var wpscoords = [];
-                                for (i in wps)
-                                {
-                                if (wps[i].x != 0 && wps[i].y != 0)
-                                {
-                                wpscoords.push({lat: wps[i].x, lng: wps[i].y, alt: wps[i].z, frame: wps[i].frame, label: wps[i].seq });
-                                }
-                                }
+                    var wpscoords = [];
+                    for (i in wps) {
+                        if (wps[i].x != 0 && wps[i].y != 0) {
+                            wpscoords.push({ lat: wps[i].x, lng: wps[i].y, alt: wps[i].z, frame: wps[i].frame, label: wps[i].seq });
+                        }
+                    }
 
-                                if(wpmarkers.length == wpscoords.length)
-                                {
-                                i=0;
-                                wpmarkers.forEach(function(element)
-                                {
-                                element.setPosition(wpscoords[i]);
-                                i++;
-                                });
-                                } else {
-                                wpmarkers.forEach(function(element)
-                                {element.setMap(null)});
-                                wpmarkers = [];
-                                // Create markers.
-                                wpscoords.forEach(function(feature) {
-                                var marker = new google.maps.Marker({
+                    if (wpmarkers.length == wpscoords.length) {
+                        i = 0;
+                        wpmarkers.forEach(function(element) {
+                            element.setPosition(wpscoords[i]);
+                            i++;
+                        });
+                    } else {
+                        wpmarkers.forEach(function(element) { element.setMap(null) });
+                        wpmarkers = [];
+                        // Create markers.
+                        wpscoords.forEach(function(feature) {
+                            var marker = new google.maps.Marker({
                                 position: feature,
                                 icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
                                 map: map,
-                                label: (feature.label == 0) ? "Home" : feature.label+"",
-                                draggable:true,
-                                title: (feature.label == 0) ? "Home" : feature.label+""
-                                });
-                                wpmarkers.push(marker);
+                                label: (feature.label == 0) ? "Home" : feature.label + "",
+                                draggable: true,
+                                title: (feature.label == 0) ? "Home" : feature.label + ""
+                            });
+                            wpmarkers.push(marker);
 
-                                google.maps.event.addListener(marker, 'dragend', function (event) {
+                            google.maps.event.addListener(marker, 'dragend', function(event) {
                                 document.getElementById("latbox").value = event.latLng.lat();
                                 document.getElementById("lngbox").value = event.latLng.lng();
-                                });
-                                });
-                                }
+                            });
+                        });
+                    }
 
-        var pnts = [];
-        wpscoords.forEach(function(feature)
-        {
-            pnts.push(feature.lng);
-            pnts.push(feature.lat);
-            pnts.push(feature.alt + cs.HomeAlt);
-        });
+                    var pnts = [];
+                    wpscoords.forEach(function(feature) {
+                        pnts.push(feature.lng);
+                        pnts.push(feature.lat);
+                        pnts.push(feature.alt + cs.HomeAlt);
+                    });
 
-         if (typeof viewer !== 'undefined') {
-            var orangeOutlined = viewer.entities.add({
-            name : 'Orange line with black outline at height and following the surface',
-            polyline : {
-                positions : Cesium.Cartesian3.fromDegreesArrayHeights(pnts),
-                width : 4,
-                material : new Cesium.PolylineOutlineMaterialProperty({
-                    color : Cesium.Color.ORANGE,
-                    outlineWidth : 2,
-                    outlineColor : Cesium.Color.BLACK
-                })
-            }
-        });
+                    if (typeof viewer !== 'undefined') {
+                        var orangeOutlined = viewer.entities.add({
+                            name: 'Orange line with black outline at height and following the surface',
+                            polyline: {
+                                positions: Cesium.Cartesian3.fromDegreesArrayHeights(pnts),
+                                width: 4,
+                                material: new Cesium.PolylineOutlineMaterialProperty({
+                                    color: Cesium.Color.ORANGE,
+                                    outlineWidth: 2,
+                                    outlineColor: Cesium.Color.BLACK
+                                })
+                            }
+                        });
 
-        //orangeOutlined.position = Cesium.Cartesian3.fromDegrees(lng, lat);
+                        //orangeOutlined.position = Cesium.Cartesian3.fromDegrees(lng, lat);
 
-        //viewer.trackedEntity = orangeOutlined;
+                        //viewer.trackedEntity = orangeOutlined;
+                    }
+
+                    if (flightPath == null) {
+                        flightPath = new google.maps.Polyline({
+                            path: wpscoords,
+                            geodesic: true,
+                            strokeColor: '#FFFF00',
+                            strokeOpacity: 1.0,
+                            strokeWeight: 4
+                        });
+
+                        flightPath.setMap(map);
+                    } else {
+                        flightPath.setPath(wpscoords);
+                    }
+
+                } else { return; }
+
+            };
+            socket.onerror = function(msg) { document.getElementById("serverStatus").innerHTML = "Error: " + msg.data; };
+            socket.onclose = function(msg) {
+                document.getElementById("serverStatus").innerHTML = "Disconnected - status " + this.readyState;
+                setTimeout("init()", 1000);
+            };
+        } catch (ex) {
+            if (window.console) console.log(exception);
+            document.getElementById("serverStatus").innerHTML = ex;
         }
-
-                                if(flightPath == null) {
-                                flightPath = new google.maps.Polyline({
-                                path: wpscoords,
-                                geodesic: true,
-                                strokeColor: '#FFFF00',
-                                strokeOpacity: 1.0,
-                                strokeWeight: 4
-                                });
-
-                                flightPath.setMap(map);
-                                } else {
-                                flightPath.setPath(wpscoords);
-                                }
-
-                            } else { return; }
-
-                        };
-                        socket.onerror   = function(msg){ document.getElementById("serverStatus").innerHTML = "Error: "+msg.data; };
-                        socket.onclose   = function(msg){ document.getElementById("serverStatus").innerHTML = "Disconnected - status "+this.readyState; setTimeout ( "init()", 1000 );  };
-                        }
-                        catch(ex){ if (window.console) console.log(exception);  document.getElementById("serverStatus").innerHTML = ex; }
-                        } else {
+    } 
+                        else {
                         document.getElementById("serverStatus").innerHTML = "This browser doesnt support websockets";
                         }
 
