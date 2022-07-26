@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />    
-    <link rel="stylesheet" href="../styles/interface.css">
-    <link rel="icon" type="image/x-icon" href="../media/images/logo2.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo2.png') }}">
     <title>OmniPresent</title>
 </head>
 
 <body onload="init();">
     <nav>
         <div class="logo">
-            <img src="../media/images/logo2.png" alt="">
+            <img src="{{ url_for('static', filename='images/logo2.png') }}" alt="">
             <div class="logo-text">
                 <span>OmniPresent</span>
             </div>
@@ -151,7 +151,7 @@ function getPosition(position){
     console.log("Your coordinate is: Lat: "+ lat +" Long: "+ long+ " Accuracy: "+ accuracy)
 }
     </script>
-    <script src="../scripts/interface.js"></script>
-    <script src="../scripts/app.js"></script>
+    <script src="{{ url_for('static', filename='js/interface.js') }}"></script>
+    <script src"{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
