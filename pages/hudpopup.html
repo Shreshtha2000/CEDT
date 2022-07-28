@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http:192.168.0.120:5000/socket.io/socket.io.js"></script>
     <title>heads-up-display</title>
     <style>
         *{
@@ -35,6 +38,14 @@
 
 
     <script src="http://smoothiecharts.org/smoothie.js"></script>
-    <script src="{{ url_for('static', filename='js/interface.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/interface.js') }}"></script>
+    <script src="http://smoothiecharts.org/smoothie.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/mav/Cesium/Cesium.js"></script>
+    <script src="/mav/bundle.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 </body>
 </html>
