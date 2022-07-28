@@ -56,8 +56,8 @@
                         <p id="vertical-speed">0.00</p>
                     </div>
                     <div class="data-bit" ondblclick="createPopup2();">
-                        <span>DistToMAV</span>
-                        <p id="distance-to-mav">0.00</p>
+                        <span>Flight Mode</span>
+                        <p id="fmode">0.00</p>
                     </div>
                 </div>
                 <div class="action-data">
@@ -89,7 +89,7 @@
                             <option value="THERMAL">THERMAL</option>
                             <option value="LOITERALTQLAND">LOITERALTQLAND</option>
                            </select>
-                           <button>SET</button>
+                           <button onclick="sendc()">SET</button>
                            <button>Camera</button>
                            <button id="arm-disarm">Arm</button>
                            <button>Joystick</button>
@@ -155,6 +155,6 @@ function getPosition(position){
 }
     </script>
     <script src="{{ url_for('static', filename='js/interface.js') }}"></script>
-    <script src"{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
